@@ -1,4 +1,8 @@
+import { useAppContext } from "@/app/context/AppContext";
+
 function Pin({ src, index }) {
+  const { handleSaveModalDisplay } = useAppContext();
+
   return (
     <div
       className="relative ml-4 mb-4 cursor-pointer group"
@@ -17,7 +21,7 @@ function Pin({ src, index }) {
         <div className="cardHoverHeader flex justify-between p-2 group-hover:opacity-100 transition-opacity duration-200">
           <div></div>
           <a
-            // onClick={() => console.log(index)}
+            onClick={() => handleSaveModalDisplay(index)}
             className="p-3 bg-red-600 hover:bg-[#B60000] text-white font-semibold rounded-full"
           >
             Save

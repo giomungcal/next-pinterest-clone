@@ -1,10 +1,12 @@
 "use client";
 
 // context/AppContext.js
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import imageData from "../data/imageData";
 
 const AppContext = createContext();
+
+const COLOR_RED = "#DE3636";
 
 export const AppProvider = ({ children }) => {
   // Get data from file imageData.js
@@ -72,47 +74,37 @@ export const AppProvider = ({ children }) => {
   // Saving Pins
 
   const [savedPins, setSavedPins] = useState({
-    "mood board": [
-      {
-        id: 76,
-        src: "/images/pinboard/img (76).jpg",
-        description: "Oversized blazer in check pattern.",
-        type: "formal",
-      },
-      {
-        id: 77,
-        src: "/images/pinboard/img (77).jpg",
-        description: "Denim halter top with tie back.",
-        type: "denim",
-      },
-      {
-        id: 78,
-        src: "/images/pinboard/img (78).jpg",
-        description: "Chelsea boots in matte leather.",
-        type: "footwear",
-      },
-    ],
-    "90s trends": [
-      {
-        id: 76,
-        src: "/images/pinboard/img (76).jpg",
-        description: "Oversized blazer in check pattern.",
-        type: "formal",
-      },
-      {
-        id: 77,
-        src: "/images/pinboard/img (77).jpg",
-        description: "Denim halter top with tie back.",
-        type: "denim",
-      },
-      {
-        id: 78,
-        src: "/images/pinboard/img (78).jpg",
-        description: "Chelsea boots in matte leather.",
-        type: "footwear",
-      },
-    ],
+    "mood board": [],
+    "90s trends": [],
   });
+
+  const [showSaveModal, setShowSaveModal] = useState(false);
+
+  function handleSaveModalDisplay(index) {
+    console.log("Saved", index);
+
+    const [selectedFolder, setSelectedFolder] = useState("");
+
+    const SAVE_FOLDER = "90s trends";
+    const isPinExisting = savedPins[SAVE_FOLDER].some(
+      (item) => item.id === index
+    );
+
+    // Add pin to folder if pin is not added yet
+    if (!isPinExisting) {
+      setSavedPins((prevSavedPins) => ({
+        ...prevSavedPins,
+        [SAVE_FOLDER]: [
+          ...prevSavedPins[SAVE_FOLDER],
+          pinArray.find((pin) => pin.id === index),
+        ],
+      }));
+    } else console.error("Pin already exists in the folder!");
+  }
+
+  useEffect(() => {
+    console.log(Object.keys(savedPins)[1]);
+  }, [savedPins]);
 
   const displayedPins = filteredPins(selectedPinType, searchValue, pinArray);
 
@@ -125,6 +117,9 @@ export const AppProvider = ({ children }) => {
         handleSearchChange,
         searchValue,
         handleRecommendedClick,
+        handleSaveModalDisplay,
+        savedPins,
+        COLOR_RED,
       }}
     >
       {children}

@@ -30,8 +30,8 @@ function PinBoard() {
       columnClassName="my-masonry-grid_column"
       style={masonryStyles}
     >
-      {displayedPins.map((img, index) => (
-        <Pin src={img.src} key={img.id} index={index} />
+      {displayedPins.map((img) => (
+        <Pin src={img.src} key={img.id} index={img.id} />
       ))}
     </Masonry>
   );
