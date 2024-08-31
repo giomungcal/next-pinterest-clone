@@ -6,8 +6,6 @@ import imageData from "../data/imageData";
 
 const AppContext = createContext();
 
-const COLOR_RED = "#DE3636";
-
 export const AppProvider = ({ children }) => {
   // Get data from file imageData.js
   const pinArray = imageData;
@@ -118,7 +116,7 @@ export const AppProvider = ({ children }) => {
         handleRecommendedClick,
         handleSaveModalDisplay,
         savedPins,
-        COLOR_RED,
+
         selectedFolder,
         setSelectedFolder,
       }}
