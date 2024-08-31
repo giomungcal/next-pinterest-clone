@@ -79,14 +79,13 @@ export const AppProvider = ({ children }) => {
   });
 
   const [showSaveModal, setShowSaveModal] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState("");
 
   function handleSaveModalDisplay(index) {
     console.log("Saved", index);
 
-    const [selectedFolder, setSelectedFolder] = useState("");
-
     const SAVE_FOLDER = "90s trends";
-    const isPinExisting = savedPins[SAVE_FOLDER].some(
+    const isPinExisting = savedPins[selectedFolder].some(
       (item) => item.id === index
     );
 
@@ -94,8 +93,8 @@ export const AppProvider = ({ children }) => {
     if (!isPinExisting) {
       setSavedPins((prevSavedPins) => ({
         ...prevSavedPins,
-        [SAVE_FOLDER]: [
-          ...prevSavedPins[SAVE_FOLDER],
+        [selectedFolder]: [
+          ...prevSavedPins[selectedFolder],
           pinArray.find((pin) => pin.id === index),
         ],
       }));
@@ -103,7 +102,7 @@ export const AppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log(Object.keys(savedPins)[1]);
+    console.log(savedPins);
   }, [savedPins]);
 
   const displayedPins = filteredPins(selectedPinType, searchValue, pinArray);
@@ -120,6 +119,8 @@ export const AppProvider = ({ children }) => {
         handleSaveModalDisplay,
         savedPins,
         COLOR_RED,
+        selectedFolder,
+        setSelectedFolder,
       }}
     >
       {children}
