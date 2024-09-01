@@ -11,7 +11,7 @@ import React from "react";
 function page() {
   return (
     <>
-      <Header />
+      <Header isSearchBarHidden={true} />
       <UserDetails />
       <hr />
       <SavedPins />
