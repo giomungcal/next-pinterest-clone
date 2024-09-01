@@ -11,7 +11,7 @@ function Navigation() {
   return (
     <nav className="mx-2 h-full flex items-center">
       <TextButton title={"Home"} href={"/"} handleHomeReset={handleHomeReset} />
-      <TextButton title={"Profile"} href={"profile"} />
+      <TextButton title={"My Pins"} href={"/profile"} />
     </nav>
   );
 }

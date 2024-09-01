@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppContext } from "@/app/context/AppContext";
 
 function Button({ icon, displayWhenSmallScreen, href, onButtonClick }) {
-  const router = useRouter();
+  const { navigateTo } = useAppContext();
 
   let displayIcon = "";
 
@@ -40,7 +40,7 @@ function Button({ icon, displayWhenSmallScreen, href, onButtonClick }) {
     <button
       className={`w-12 h-12 justify-center items-center cursor-pointer ${mediaQueryDisplay}`}
       onClick={() => {
-        href && router.push(href);
+        href && navigateTo(href);
         onButtonClick && onButtonClick();
       }}
     >

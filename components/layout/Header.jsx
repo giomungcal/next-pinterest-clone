@@ -8,14 +8,14 @@ import Navigation from "./Navigation";
 function Header() {
   return (
     <header className="h-[80px] w-full py-1 px-4 flex items-center">
-      <div className="h-[56px] w-full flex justify-between items-center">
-        <Logo />
+      <div className="h-[56px] w-full flex justify-evenly items-center">
+        <Logo isClickable={true} isRed={true} />
         <Navigation />
         <SearchBar placeholderText={"denim, hairstyles.."} />
         <Button icon={"notificationIcon"} displayWhenSmallScreen={false} />
         <Button icon={"chatbubbleIcon"} displayWhenSmallScreen={false} />
         <Button
-          href={"profile"}
+          href={"/profile"}
           icon={"profileIcon"}
           displayWhenSmallScreen={false}
         />

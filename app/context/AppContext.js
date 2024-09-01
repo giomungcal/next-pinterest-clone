@@ -1,7 +1,9 @@
 "use client";
 
 // context/AppContext.js
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import imageData from "../data/imageData";
 
 const AppContext = createContext();
@@ -9,6 +11,11 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   // Get data from file imageData.js
   const pinArray = imageData;
+
+  const router = useRouter();
+  function navigateTo(target) {
+    router.push(target);
+  }
 
   //   Identify which items are to be displayed in the Recommended Section
   const uniqueTypes = new Set();
@@ -76,31 +83,55 @@ export const AppProvider = ({ children }) => {
     "90s trends": [],
   });
 
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const [selectedFolder, setSelectedFolder] = useState("");
+  const [isSaveModalDisplayed, setisSaveModalDisplayed] = useState(false);
+  const [selectedSaveFolder, setSelectedSaveFolder] = useState("");
+  const [selectedPinToSave, setSelectedPinToSave] = useState(null);
 
-  function handleSaveModalDisplay(index) {
-    console.log("Saved", index);
+  function showSaveModal(index) {
+    setisSaveModalDisplayed(true);
+    setSelectedPinToSave(index);
+  }
 
-    const SAVE_FOLDER = "90s trends";
-    const isPinExisting = savedPins[selectedFolder].some(
-      (item) => item.id === index
-    );
+  function closeSaveModal() {
+    setisSaveModalDisplayed(false);
+    setSelectedSaveFolder("");
+  }
 
-    // Add pin to folder if pin is not added yet
-    if (!isPinExisting) {
+  function handleSelectedSaveFolderChange(folder) {
+    setSelectedSaveFolder(folder);
+  }
+
+  function handleSaveButton(e) {
+    e.preventDefault();
+
+    if (selectedSaveFolder) {
+      const isPinExistingInFolder = savedPins[selectedSaveFolder].some(
+        (item) => item.id === selectedPinToSave
+      );
+
+      if (isPinExistingInFolder) {
+        console.error("Pin already exists in the folder!");
+        return;
+      }
+
+      // Assign new unique id to pin
+      const newPin = pinArray.find((pin) => pin.id === selectedPinToSave);
+      const pinWithUniqueId = { ...newPin, uniqueId: uuidv4() };
+
+      // Add pin to folder if pin doesn't exist yet
       setSavedPins((prevSavedPins) => ({
         ...prevSavedPins,
-        [selectedFolder]: [
-          ...prevSavedPins[selectedFolder],
-          pinArray.find((pin) => pin.id === index),
+        [selectedSaveFolder]: [
+          ...prevSavedPins[selectedSaveFolder],
+          pinWithUniqueId,
         ],
       }));
-    } else console.error("Pin already exists in the folder!");
+    }
   }
 
   useEffect(() => {
     console.log(savedPins);
+    // Object.keys(savedPins).map((item) => console.log(savedPins[item]));
   }, [savedPins]);
 
   const displayedPins = filteredPins(selectedPinType, searchValue, pinArray);
@@ -108,17 +139,22 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        navigateTo,
         displayedPins,
         recommendedDisplayArray,
         handleHomeReset,
+
         handleSearchChange,
         searchValue,
         handleRecommendedClick,
-        handleSaveModalDisplay,
-        savedPins,
 
-        selectedFolder,
-        setSelectedFolder,
+        savedPins,
+        selectedSaveFolder,
+        handleSelectedSaveFolderChange,
+        closeSaveModal,
+        showSaveModal,
+        isSaveModalDisplayed,
+        handleSaveButton,
       }}
     >
       {children}

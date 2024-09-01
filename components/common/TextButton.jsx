@@ -1,18 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppContext } from "@/app/context/AppContext";
 import React from "react";
 
-function TextButton({ title, href, handleHomeReset }) {
-  const router = useRouter();
+function TextButton({ title, href, handleHomeReset, bgColor }) {
+  const { navigateTo } = useAppContext();
 
   return (
     <button
       onClick={() => {
-        href && router.push(href);
+        href && navigateTo(href);
         handleHomeReset && handleHomeReset();
       }}
-      className="px-4 h-[48px] flex items-center rounded-full hover:bg-gray-200"
+      className={`px-4 h-[48px] items-center rounded-full hover:bg-gray-200 min-w-max md:flex hidden ${bgColor}`}
     >
       <span className="font-medium">{title}</span>
     </button>

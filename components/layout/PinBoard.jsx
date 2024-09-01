@@ -6,7 +6,7 @@ import Pin from "../common/Pin";
 
 import { useAppContext } from "@/app/context/AppContext";
 
-function PinBoard() {
+function PinBoard({ pinsDisplayed }) {
   const breakpointColumnsObj = {
     default: 6, // Number of columns on large screens
     1100: 5, // Number of columns on medium screens
@@ -21,8 +21,6 @@ function PinBoard() {
     padding: "0 16px",
   };
 
-  const { displayedPins } = useAppContext();
-
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
@@ -30,7 +28,7 @@ function PinBoard() {
       columnClassName="my-masonry-grid_column"
       style={masonryStyles}
     >
-      {displayedPins.map((img) => (
+      {pinsDisplayed.map((img) => (
         <Pin src={img.src} key={img.id} index={img.id} />
       ))}
     </Masonry>
