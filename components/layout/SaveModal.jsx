@@ -12,16 +12,23 @@ function SaveModal() {
   return (
     <section className="fixed inset-0 z-20 bg-[#3A3A3A] bg-opacity-30  backdrop-blur-sm flex justify-center items-center ">
       <div className="w-[300px] bg-white rounded-2xl">
+        <h2 className="w-full my-5 mx-auto text-center text-lg font-semibold">
+          Save
+        </h2>
         <form className="block m-4">
-          <span>Add a new folder:</span>
+          <span className="text-sm text-gray-500 font-semibold">
+            Add a new folder (optional):
+          </span>
           <input
-            placeholder="enter here"
+            placeholder="haircuts, mood board.."
             type="text"
-            className="mt-2 bg-gray-200 text-black rounded-full px-3 py-2 placeholder:text-gray-500 w-full"
+            className="mt-2 bg-gray-200 text-black rounded-full px-4 py-2 placeholder:text-gray-500 w-full"
           />
         </form>
         <div className="flex flex-col space-y-2 my-4 px-4">
-          <span>Choose folder:</span>
+          <span className="text-sm text-gray-800 font-semibold">
+            Choose folder:
+          </span>
           {folderNames.map((folder, index) => (
             <label
               key={index}
