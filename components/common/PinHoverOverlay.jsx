@@ -23,7 +23,6 @@ function PinHoverOverlay({ idOfImage, actionOnButtonClick, folderName }) {
           {actionOnButtonClick === "delete" && (
             <a
               onClick={() => {
-                console.log("Removing pin number: ", idOfImage, folderName);
                 handlePinRemoval(idOfImage, folderName);
               }}
               className="p-3 bg-red-600 hover:bg-[#B60000] text-white font-semibold rounded-full"

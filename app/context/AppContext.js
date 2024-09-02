@@ -170,16 +170,6 @@ export const AppProvider = ({ children }) => {
         ],
       }));
     }
-
-    // Updating local storage
-
-    // if (typeof window !== "undefined" && savedPins) {
-    //   console.log(savedPins === true);
-    //   console.log("STILL DOING THIS");
-
-    //   const savedPins_serialized = JSON.stringify(savedPins);
-    //   localStorage.setItem("savedPins", savedPins_serialized);
-    // }
   }
 
   //   5. Folder deletion
@@ -190,45 +180,19 @@ export const AppProvider = ({ children }) => {
       delete newSavedPins[folderToDelete];
       return newSavedPins;
     });
-
-    // Updating local storage
-    // if (typeof window !== "undefined" && savedPins) {
-    //   console.log(savedPins === true);
-    //   console.log("STILL DOING THIS");
-
-    //   const savedPins_serialized = JSON.stringify(savedPins);
-    //   localStorage.setItem("savedPins", savedPins_serialized);
-    // }
   }
 
   // 6. Removal of Pin from folder
 
   function handlePinRemoval(idOfImage, folderName) {
-    console.log("Saved Pins:", savedPins);
-
     const updatedFolder = savedPins[folderName].filter(
       (pinObj) => pinObj.id !== idOfImage
     );
-
-    console.log("Updated Folder:", updatedFolder);
-
-    const newSavedPins = { ...savedPins, [folderName]: [...updatedFolder] };
-
-    console.log("Updated Saved Pins: ", newSavedPins);
 
     setSavedPins((prevPins) => ({
       ...prevPins,
       [folderName]: [...updatedFolder],
     }));
-
-    // Updating local storage
-    // if (typeof window !== "undefined" && savedPins) {
-    //   console.log(savedPins === true);
-    //   console.log("STILL DOING THIS");
-
-    //   const savedPins_serialized = JSON.stringify(savedPins);
-    //   localStorage.setItem("savedPins", savedPins_serialized);
-    // }
   }
 
   const allPinsDisplayedInHome = filteredPins(
