@@ -3,7 +3,7 @@
 import { useAppContext } from "@/app/context/AppContext";
 import React from "react";
 
-function FolderDisplay({ folderName }) {
+function FolderIcon({ folderName }) {
   const { savedPins } = useAppContext();
 
   const translateXValues = ["0px", "20px", "40px", "60px", "80px"];
@@ -32,4 +32,4 @@ function FolderDisplay({ folderName }) {
   );
 }
 
-export default FolderDisplay;
+export default FolderIcon;

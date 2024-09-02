@@ -7,6 +7,7 @@ function ProfileFooter() {
           Pinterest Clone by ☆ Gio Mungcal ★
         </span>
       </div>
+      <hr />
     </>
   );
 }

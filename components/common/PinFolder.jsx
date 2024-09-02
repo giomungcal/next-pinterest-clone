@@ -1,7 +1,7 @@
 import { useAppContext } from "@/app/context/AppContext";
 import React from "react";
-import FolderDisplay from "./FolderDisplay";
 import FolderEmpty from "./FolderEmpty";
+import FolderIcon from "./FolderIcon";
 
 const PinFolder = ({ folderName }) => {
   const { savedPins, navigateTo } = useAppContext();
@@ -14,7 +14,7 @@ const PinFolder = ({ folderName }) => {
       className="w-[250px] flex flex-col justify-items-start p-2 cursor-pointer mb-4"
     >
       {savedPins[folderName].length ? (
-        <FolderDisplay folderName={folderName} />
+        <FolderIcon folderName={folderName} />
       ) : (
         <FolderEmpty />
       )}
