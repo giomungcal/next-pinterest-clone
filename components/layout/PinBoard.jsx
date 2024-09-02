@@ -1,8 +1,13 @@
+"use client";
+
+import { useAppContext } from "@/app/context/AppContext";
 import React from "react";
 import Masonry from "react-masonry-css";
 import Pin from "../common/Pin";
 
-function PinBoard({ pinsDisplayed }) {
+function PinBoard({ pinsToBeDisplayed }) {
+  const { allPinsDisplayedInHome, savedPins } = useAppContext();
+
   const breakpointColumnsObj = {
     default: 6, // Number of columns on large screens
     1100: 5, // Number of columns on medium screens
@@ -24,9 +29,23 @@ function PinBoard({ pinsDisplayed }) {
       columnClassName="my-masonry-grid_column"
       style={masonryStyles}
     >
-      {pinsDisplayed.map((img, index) => (
-        <Pin src={img.src} key={img.id} indexOfImage={index} />
-      ))}
+      {pinsToBeDisplayed === "all"
+        ? allPinsDisplayedInHome.map((img) => (
+            <Pin
+              src={img.src}
+              key={img.id}
+              idOfImage={img.id}
+              actionOnButtonClick={"save"}
+            />
+          ))
+        : savedPins[pinsToBeDisplayed].map((img) => (
+            <Pin
+              src={img.src}
+              key={img.id}
+              idOfImage={img.id}
+              actionOnButtonClick={"delete"}
+            />
+          ))}
     </Masonry>
   );
 }

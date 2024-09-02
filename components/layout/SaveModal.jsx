@@ -27,7 +27,6 @@ function SaveModal() {
   const folderNames = Object.keys(savedPins);
 
   if (!isSaveModalDisplayed) return null;
-
   return (
     <section className="fixed inset-0 z-20 bg-[#3A3A3A] bg-opacity-30  backdrop-blur-sm flex justify-center items-center ">
       <div className="w-[300px] bg-white rounded-2xl px-2 py-4">
@@ -41,7 +40,12 @@ function SaveModal() {
           }}
         >
           <span className="text-sm text-gray-500 font-semibold">
-            Add a new folder (optional):
+            Add a new folder{" "}
+            {Object.keys(savedPins).length > 0 ? (
+              <span>(optional):</span>
+            ) : (
+              <span className="text-red-700">(required):</span>
+            )}
           </span>
           <input
             value={newFolderName}

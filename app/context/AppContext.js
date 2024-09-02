@@ -152,13 +152,27 @@ export const AppProvider = ({ children }) => {
     }
   }
 
-  const displayedPins = filteredPins(selectedPinType, searchValue, pinArray);
+  //   5. Folder deletion
+
+  function handleFolderDeletion(folderToDelete) {
+    delete savedPins[folderToDelete];
+  }
+
+  // 6. Removal of Pin from folder
+
+  //   Modify content of pins in home page based on filters
+
+  const allPinsDisplayedInHome = filteredPins(
+    selectedPinType,
+    searchValue,
+    pinArray
+  );
 
   return (
     <AppContext.Provider
       value={{
         navigateTo,
-        displayedPins,
+        allPinsDisplayedInHome,
         recommendedDisplayArray,
         handleHomeReset,
 
@@ -177,6 +191,8 @@ export const AppProvider = ({ children }) => {
         showSaveModal,
         isSaveModalDisplayed,
         handleSaveButton,
+
+        handleFolderDeletion,
       }}
     >
       {children}
