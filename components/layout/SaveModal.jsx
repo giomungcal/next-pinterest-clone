@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import AddFolder from "../common/AddFolder";
 
 function SaveModal() {
   const {
@@ -19,12 +20,12 @@ function SaveModal() {
     isSaveModalDisplayed,
     closeSaveModal,
     handleSaveButton,
-    handleAddNewFolder,
-    newFolderName,
-    setNewFolderName,
   } = useAppContext();
 
   const folderNames = Object.keys(savedPins);
+
+  // TEMPORARY ONLY
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   if (!isSaveModalDisplayed) return null;
   return (
@@ -33,33 +34,21 @@ function SaveModal() {
         <h2 className="w-full my-5 mx-auto text-center text-lg font-semibold">
           Save
         </h2>
-        <form
-          className="block m-4"
-          onSubmit={(e) => {
-            handleAddNewFolder(e);
-          }}
-        >
-          <span className="text-sm text-gray-500 font-semibold">
-            Add a new folder{" "}
-            {Object.keys(savedPins).length > 0 ? (
-              <span>(optional):</span>
-            ) : (
-              <span className="text-red-700">(required):</span>
-            )}
-          </span>
-          <input
-            value={newFolderName}
-            onChange={(e) => setNewFolderName(e.target.value)}
-            placeholder="haircuts, mood board.."
-            type="text"
-            className="mt-2 bg-gray-200 text-black rounded-full px-4 py-2 placeholder:text-gray-500 w-full"
-          />
-        </form>
+        <AddFolder />
 
         <form>
           <span className="text-sm text-gray-800 font-semibold ml-4">
             Choose folder: <span className="text-red-700">(required)</span>
           </span>
+
+          <div
+            className={`absolute bg-red-600 text-white text-sm rounded py-1 px-2 mb-2 transform translate-y-[-25px] translate-x-[200px] whitespace-nowrap transition-opacity duration-300 ease-in-out ${
+              isTooltipVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Click on a folder first!
+          </div>
+
           <div className="flex flex-col justify-items-start max-h-52 overflow-auto space-y-2 mt-4 mb-8 px-4 custom-scrollbar">
             {folderNames.map((folder, index) => (
               <label
@@ -84,8 +73,14 @@ function SaveModal() {
             ))}
           </div>
           <div className="flex justify-around mb-4 px-2">
+            <div className="absolute bg-gray-700 text-white text-sm rounded py-1 px-2 bottom-full mb-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+              TESTdawdawdawdawwda
+            </div>
             <button
-              onClick={() => closeSaveModal()}
+              onClick={() => {
+                closeSaveModal();
+                setIsTooltipVisible(false);
+              }}
               className="p-2 bg-slate-300 rounded-full w-full mx-2 hover:bg-slate-400 "
             >
               Cancel
@@ -95,6 +90,8 @@ function SaveModal() {
               onClick={(e) => {
                 selectedSaveFolder && closeSaveModal();
                 handleSaveButton(e, selectedSaveFolder);
+                !selectedSaveFolder && setIsTooltipVisible(true);
+                selectedSaveFolder && setIsTooltipVisible(false);
               }}
               className="p-2 bg-[#DE3636] hover:bg-red-700 rounded-full w-full mx-2 text-white"
             >
@@ -102,51 +99,6 @@ function SaveModal() {
             </button>
           </div>
         </form>
-
-        {/* <div className="flex flex-col space-y-2 mt-4 mb-8 px-4">
-          <span className="text-sm text-gray-800 font-semibold">
-            Choose folder: <span className="text-red-700">(required)</span>
-          </span>
-          {folderNames.map((folder, index) => (
-            <label
-              key={index}
-              className={`flex justify-center cursor-pointer px-4 py-3 rounded-3xl border transition-colors w-full ${
-                selectedSaveFolder === folder
-                  ? `bg-[#DE3636] text-white`
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              <input
-                type="radio"
-                id={folder}
-                name="folder"
-                value={folder}
-                className="hidden"
-                checked={selectedSaveFolder === folder}
-                onChange={() => handleSelectedSaveFolderChange(folder)}
-              />
-              {folder}
-            </label>
-          ))}
-        </div>
-        <div className="flex justify-around mb-4 px-2">
-          <button
-            onClick={() => closeSaveModal()}
-            className="p-2 bg-slate-300 rounded-full w-full mx-2 hover:bg-slate-400 "
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            onClick={() => {
-              selectedSaveFolder && closeSaveModal();
-              handleSaveButton(selectedSaveFolder);
-            }}
-            className="p-2 bg-[#DE3636] hover:bg-red-700 rounded-full w-full mx-2 text-white"
-          >
-            Save
-          </button>
-        </div> */}
       </div>
     </section>
   );
