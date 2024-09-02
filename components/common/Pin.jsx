@@ -14,6 +14,8 @@ function Pin({ src, idOfImage, actionOnButtonClick, folderName }) {
         width={100}
         height={100}
         sizes="100vw"
+        placeholder="empty"
+        priority={idOfImage < 15 && true}
         style={{
           width: "100%",
           height: "auto",

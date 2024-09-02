@@ -2,7 +2,7 @@
 
 // context/AppContext.js
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import imageData from "../data/imageData";
 
@@ -30,7 +30,7 @@ export const AppProvider = ({ children }) => {
   const recommendedDisplayArray = [
     {
       id: 0,
-      src: "/images/pinboard/img (76).jpg",
+      src: "/images/pinboard/img (42).jpg",
       description: "Oversized blazer in check pattern.",
       type: "all",
     },
@@ -79,60 +79,30 @@ export const AppProvider = ({ children }) => {
 
   // 4. Saving Pins
 
-  const [savedPins, setSavedPins] = useState({
-    "mood board": [
-      {
-        id: 2,
-        src: "/images/pinboard/img (2).jpg",
-        description: "Elegant black evening dress.",
-        type: "dress",
-      },
-      {
-        id: 3,
-        src: "/images/pinboard/img (3).jpg",
-        description: "Casual white t-shirt with a pocket.",
-        type: "casual",
-      },
-      {
-        id: 4,
-        src: "/images/pinboard/img (4).jpg",
-        description: "Leather ankle boots in brown.",
-        type: "footwear",
-      },
-      {
-        id: 5,
-        src: "/images/pinboard/img (5).jpg",
-        description: "Summer floral print dress.",
-        type: "dress",
-      },
-      {
-        id: 6,
-        src: "/images/pinboard/img (6).jpg",
-        description: "Ripped skinny jeans in light wash.",
-        type: "denim",
-      },
-    ],
-    "90s trends": [],
-  });
+  const [savedPins, setSavedPins] = useState({});
 
   // 4.0 Initialize Saved Pins from local storage  - if any
-  // useEffect(() => {
-  //     // Initialize from localStorage
-  //     if (typeof window !== 'undefined') {
-  //       const storedData = localStorage.getItem('myData');
-  //       if (storedData) {
-  //         setData(storedData);
-  //       }
-  //     }
-  //   }, []);
+
+  let retrievedData;
+
+  useEffect(() => {
+    // Initialize from localStorage
+    if (typeof window !== "undefined") {
+      retrievedData = localStorage.getItem("savedPins");
+      if (retrievedData) {
+        setSavedPins(JSON.parse(retrievedData));
+      }
+    }
+  }, []);
 
   // 4.0  Update Local Storage whenever Saved Pins is updated
-  //   useEffect(() => {
-  //     // Update localStorage whenever data changes
-  //     if (typeof window !== 'undefined') {
-  //       localStorage.setItem('myData', data);
-  //     }
-  //   }, [data]);
+  useEffect(() => {
+    // Update localStorage whenever data changes
+    if (typeof window !== "undefined" && Object.keys(savedPins).length > 0) {
+      const savedPins_serialized = JSON.stringify(savedPins);
+      localStorage.setItem("savedPins", savedPins_serialized);
+    }
+  }, [savedPins]);
 
   //   4.1 Adding a new folder
 
@@ -200,12 +170,35 @@ export const AppProvider = ({ children }) => {
         ],
       }));
     }
+
+    // Updating local storage
+
+    // if (typeof window !== "undefined" && savedPins) {
+    //   console.log(savedPins === true);
+    //   console.log("STILL DOING THIS");
+
+    //   const savedPins_serialized = JSON.stringify(savedPins);
+    //   localStorage.setItem("savedPins", savedPins_serialized);
+    // }
   }
 
   //   5. Folder deletion
 
   function handleFolderDeletion(folderToDelete) {
-    delete savedPins[folderToDelete];
+    setSavedPins((prevSavedPins) => {
+      const newSavedPins = { ...prevSavedPins };
+      delete newSavedPins[folderToDelete];
+      return newSavedPins;
+    });
+
+    // Updating local storage
+    // if (typeof window !== "undefined" && savedPins) {
+    //   console.log(savedPins === true);
+    //   console.log("STILL DOING THIS");
+
+    //   const savedPins_serialized = JSON.stringify(savedPins);
+    //   localStorage.setItem("savedPins", savedPins_serialized);
+    // }
   }
 
   // 6. Removal of Pin from folder
@@ -227,6 +220,15 @@ export const AppProvider = ({ children }) => {
       ...prevPins,
       [folderName]: [...updatedFolder],
     }));
+
+    // Updating local storage
+    // if (typeof window !== "undefined" && savedPins) {
+    //   console.log(savedPins === true);
+    //   console.log("STILL DOING THIS");
+
+    //   const savedPins_serialized = JSON.stringify(savedPins);
+    //   localStorage.setItem("savedPins", savedPins_serialized);
+    // }
   }
 
   const allPinsDisplayedInHome = filteredPins(

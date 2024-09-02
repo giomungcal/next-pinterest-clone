@@ -7,7 +7,7 @@ function SavedPins() {
   const { savedPins } = useAppContext();
 
   return (
-    <section className="flex flex-col justify-center items-center space-y-10 mt-10">
+    <section className="flex flex-col justify-center items-center space-y-10 my-10">
       {<h2 className="text-xl font-semibold">Saved Pins</h2>}
 
       {Object.keys(savedPins).length > 0 ? (

@@ -443,42 +443,6 @@ const data = [
     description: "Denim jacket with shearling collar.",
     type: "denim",
   },
-  {
-    id: 75,
-    src: "/images/pinboard/img (75).jpg",
-    description: "Espadrilles with floral embroidery.",
-    type: "footwear",
-  },
-  {
-    id: 76,
-    src: "/images/pinboard/img (76).jpg",
-    description: "Oversized blazer in check pattern.",
-    type: "formal",
-  },
-  {
-    id: 77,
-    src: "/images/pinboard/img (77).jpg",
-    description: "Denim halter top with tie back.",
-    type: "denim",
-  },
-  {
-    id: 78,
-    src: "/images/pinboard/img (78).jpg",
-    description: "Chelsea boots in matte leather.",
-    type: "footwear",
-  },
-  {
-    id: 79,
-    src: "/images/pinboard/img (79).jpg",
-    description: "Layered necklace in gold.",
-    type: "accessories",
-  },
-  {
-    id: 80,
-    src: "/images/pinboard/img (80).jpg",
-    description: "Sleek ankle boots in black leather.",
-    type: "footwear",
-  },
 ];
 
 export default data;
