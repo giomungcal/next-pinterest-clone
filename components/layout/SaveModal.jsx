@@ -20,6 +20,8 @@ function SaveModal() {
     closeSaveModal,
     handleSaveButton,
     handleAddNewFolder,
+    newFolderName,
+    setNewFolderName,
   } = useAppContext();
 
   const folderNames = Object.keys(savedPins);
@@ -32,12 +34,18 @@ function SaveModal() {
         <h2 className="w-full my-5 mx-auto text-center text-lg font-semibold">
           Save
         </h2>
-        <form className="block m-4">
+        <form
+          className="block m-4"
+          onSubmit={(e) => {
+            handleAddNewFolder(e);
+          }}
+        >
           <span className="text-sm text-gray-500 font-semibold">
             Add a new folder (optional):
           </span>
           <input
-            onSubmit={(e) => handleAddNewFolder(e)}
+            value={newFolderName}
+            onChange={(e) => setNewFolderName(e.target.value)}
             placeholder="haircuts, mood board.."
             type="text"
             className="mt-2 bg-gray-200 text-black rounded-full px-4 py-2 placeholder:text-gray-500 w-full"
@@ -45,21 +53,10 @@ function SaveModal() {
         </form>
 
         <form>
-          <div className="flex flex-col justify-items-start space-y-2 mt-4 mb-8 px-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <span className="text-sm text-gray-800 font-semibold">
-                    Choose folder:{" "}
-                    <span className="text-red-700">(required)</span>
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Add to library</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
+          <span className="text-sm text-gray-800 font-semibold ml-4">
+            Choose folder: <span className="text-red-700">(required)</span>
+          </span>
+          <div className="flex flex-col justify-items-start max-h-52 overflow-auto space-y-2 mt-4 mb-8 px-4 custom-scrollbar">
             {folderNames.map((folder, index) => (
               <label
                 key={index}

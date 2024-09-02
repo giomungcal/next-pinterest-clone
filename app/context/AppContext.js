@@ -84,17 +84,31 @@ export const AppProvider = ({ children }) => {
     "90s trends": [],
   });
 
-  const [isSaveModalDisplayed, setisSaveModalDisplayed] = useState(false);
-  const [selectedSaveFolder, setSelectedSaveFolder] = useState("");
-  const [selectedPinToSave, setSelectedPinToSave] = useState(null);
-
   //   4.1 Adding a new folder
 
   const [newFolderName, setNewFolderName] = useState("");
+  const [isNewFolderNameValid, setIsNewFolderNameValid] = useState(true);
+
   function handleAddNewFolder(e) {
     e.preventDefault();
-    console.log("emeee");
+
+    const formattedFolderName = String(newFolderName.trim());
+
+    if (
+      formattedFolderName &&
+      !Object.keys(savedPins).includes(formattedFolderName)
+    ) {
+      setSavedPins((prev) => ({ ...prev, [formattedFolderName]: [] }));
+    }
+
+    setNewFolderName("");
   }
+
+  // 4.2 Saving the pin to a selected folder
+
+  const [isSaveModalDisplayed, setisSaveModalDisplayed] = useState(false);
+  const [selectedSaveFolder, setSelectedSaveFolder] = useState("");
+  const [selectedPinToSave, setSelectedPinToSave] = useState(null);
 
   function showSaveModal(index) {
     setisSaveModalDisplayed(true);
@@ -153,6 +167,8 @@ export const AppProvider = ({ children }) => {
         handleRecommendedClick,
 
         handleAddNewFolder,
+        newFolderName,
+        setNewFolderName,
 
         savedPins,
         selectedSaveFolder,

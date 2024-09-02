@@ -1,38 +1,19 @@
-import { useAppContext } from "@/app/context/AppContext";
+"use client";
+
 import Image from "next/image";
+import PinHoverOverlay from "./PinHoverOverlay";
+import PinImage from "./PinImage";
 
-function Pin({ src, index }) {
-  const { showSaveModal } = useAppContext();
-
+function Pin({ src, indexOfImage }) {
   return (
     <div
       className="relative ml-4 mb-4 cursor-pointer group"
       style={{ backgroundClip: "padding-box" }}
     >
-      <Image
-        src={src}
-        alt={`Image ${index + 1}`}
-        className="rounded-lg"
-        layout="responsive"
-        width={100}
-        height={100}
-      />
-
-      {/* Hover Background */}
-      <div className="cardHoverBackground hidden group-hover:block absolute top-0 left-0 w-full h-full opacity-30 bg-black rounded-lg transition-opacity duration-300"></div>
+      <PinImage src={src} indexOfImage={indexOfImage} />
 
       {/* Container displayed upon hover */}
-      <div className="cardHoverContainer hidden group-hover:block absolute top-0 left-0  w-full h-full ">
-        <div className="cardHoverHeader flex justify-between p-2 group-hover:opacity-100 transition-opacity duration-200">
-          <div></div>
-          <a
-            onClick={() => showSaveModal(index)}
-            className="p-3 bg-red-600 hover:bg-[#B60000] text-white font-semibold rounded-full"
-          >
-            Save
-          </a>
-        </div>
-      </div>
+      <PinHoverOverlay indexOfImage={indexOfImage} />
     </div>
   );
 }
