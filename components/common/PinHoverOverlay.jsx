@@ -1,7 +1,9 @@
+"use client";
+
 import { useAppContext } from "@/app/context/AppContext";
 
-function PinHoverOverlay({ idOfImage, actionOnButtonClick }) {
-  const { showSaveModal } = useAppContext();
+function PinHoverOverlay({ idOfImage, actionOnButtonClick, folderName }) {
+  const { showSaveModal, handlePinRemoval } = useAppContext();
 
   return (
     <>
@@ -21,7 +23,8 @@ function PinHoverOverlay({ idOfImage, actionOnButtonClick }) {
           {actionOnButtonClick === "delete" && (
             <a
               onClick={() => {
-                console.log("Removing pin number: ", idOfImage);
+                console.log("Removing pin number: ", idOfImage, folderName);
+                handlePinRemoval(idOfImage, folderName);
               }}
               className="p-3 bg-red-600 hover:bg-[#B60000] text-white font-semibold rounded-full"
             >

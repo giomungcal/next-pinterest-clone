@@ -80,9 +80,59 @@ export const AppProvider = ({ children }) => {
   // 4. Saving Pins
 
   const [savedPins, setSavedPins] = useState({
-    "mood board": [],
+    "mood board": [
+      {
+        id: 2,
+        src: "/images/pinboard/img (2).jpg",
+        description: "Elegant black evening dress.",
+        type: "dress",
+      },
+      {
+        id: 3,
+        src: "/images/pinboard/img (3).jpg",
+        description: "Casual white t-shirt with a pocket.",
+        type: "casual",
+      },
+      {
+        id: 4,
+        src: "/images/pinboard/img (4).jpg",
+        description: "Leather ankle boots in brown.",
+        type: "footwear",
+      },
+      {
+        id: 5,
+        src: "/images/pinboard/img (5).jpg",
+        description: "Summer floral print dress.",
+        type: "dress",
+      },
+      {
+        id: 6,
+        src: "/images/pinboard/img (6).jpg",
+        description: "Ripped skinny jeans in light wash.",
+        type: "denim",
+      },
+    ],
     "90s trends": [],
   });
+
+  // 4.0 Initialize Saved Pins from local storage  - if any
+  // useEffect(() => {
+  //     // Initialize from localStorage
+  //     if (typeof window !== 'undefined') {
+  //       const storedData = localStorage.getItem('myData');
+  //       if (storedData) {
+  //         setData(storedData);
+  //       }
+  //     }
+  //   }, []);
+
+  // 4.0  Update Local Storage whenever Saved Pins is updated
+  //   useEffect(() => {
+  //     // Update localStorage whenever data changes
+  //     if (typeof window !== 'undefined') {
+  //       localStorage.setItem('myData', data);
+  //     }
+  //   }, [data]);
 
   //   4.1 Adding a new folder
 
@@ -160,7 +210,24 @@ export const AppProvider = ({ children }) => {
 
   // 6. Removal of Pin from folder
 
-  //   Modify content of pins in home page based on filters
+  function handlePinRemoval(idOfImage, folderName) {
+    console.log("Saved Pins:", savedPins);
+
+    const updatedFolder = savedPins[folderName].filter(
+      (pinObj) => pinObj.id !== idOfImage
+    );
+
+    console.log("Updated Folder:", updatedFolder);
+
+    const newSavedPins = { ...savedPins, [folderName]: [...updatedFolder] };
+
+    console.log("Updated Saved Pins: ", newSavedPins);
+
+    setSavedPins((prevPins) => ({
+      ...prevPins,
+      [folderName]: [...updatedFolder],
+    }));
+  }
 
   const allPinsDisplayedInHome = filteredPins(
     selectedPinType,
@@ -193,6 +260,8 @@ export const AppProvider = ({ children }) => {
         handleSaveButton,
 
         handleFolderDeletion,
+
+        handlePinRemoval,
       }}
     >
       {children}

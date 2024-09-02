@@ -31,6 +31,7 @@ function PinBoard({ pinsToBeDisplayed }) {
     >
       {pinsToBeDisplayed === "all"
         ? allPinsDisplayedInHome.map((img) => (
+            // Home Page
             <Pin
               src={img.src}
               key={img.id}
@@ -39,10 +40,12 @@ function PinBoard({ pinsToBeDisplayed }) {
             />
           ))
         : savedPins[pinsToBeDisplayed].map((img) => (
+            // Saved Folder Page
             <Pin
               src={img.src}
               key={img.id}
               idOfImage={img.id}
+              folderName={pinsToBeDisplayed}
               actionOnButtonClick={"delete"}
             />
           ))}
