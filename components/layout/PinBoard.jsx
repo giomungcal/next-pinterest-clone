@@ -1,10 +1,6 @@
-"use client";
-
 import React from "react";
 import Masonry from "react-masonry-css";
 import Pin from "../common/Pin";
-
-import { useAppContext } from "@/app/context/AppContext";
 
 function PinBoard({ pinsDisplayed }) {
   const breakpointColumnsObj = {

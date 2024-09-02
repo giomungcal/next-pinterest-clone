@@ -1,4 +1,5 @@
 import { useAppContext } from "@/app/context/AppContext";
+import Image from "next/image";
 
 function Pin({ src, index }) {
   const { showSaveModal } = useAppContext();
@@ -8,11 +9,15 @@ function Pin({ src, index }) {
       className="relative ml-4 mb-4 cursor-pointer group"
       style={{ backgroundClip: "padding-box" }}
     >
-      <img
+      <Image
         src={src}
         alt={`Image ${index + 1}`}
-        className="block w-full h-auto rounded-lg"
+        className="rounded-lg"
+        layout="responsive"
+        width={100}
+        height={100}
       />
+
       {/* Hover Background */}
       <div className="cardHoverBackground hidden group-hover:block absolute top-0 left-0 w-full h-full opacity-30 bg-black rounded-lg transition-opacity duration-300"></div>
 

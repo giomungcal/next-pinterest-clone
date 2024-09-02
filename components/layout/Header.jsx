@@ -23,7 +23,11 @@ function Header({ isSearchBarHidden }) {
           icon={"profileIcon"}
           displayWhenSmallScreen={false}
         />
-        <Button icon={"arrowDownIcon"} displayWhenSmallScreen={true} />
+        <Button
+          href={"/profile"}
+          icon={"savePinIcon"}
+          displayWhenSmallScreen={true}
+        />
       </div>
     </header>
   );

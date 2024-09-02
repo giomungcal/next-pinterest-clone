@@ -19,6 +19,7 @@ function SaveModal() {
     isSaveModalDisplayed,
     closeSaveModal,
     handleSaveButton,
+    handleAddNewFolder,
   } = useAppContext();
 
   const folderNames = Object.keys(savedPins);
@@ -36,6 +37,7 @@ function SaveModal() {
             Add a new folder (optional):
           </span>
           <input
+            onSubmit={(e) => handleAddNewFolder(e)}
             placeholder="haircuts, mood board.."
             type="text"
             className="mt-2 bg-gray-200 text-black rounded-full px-4 py-2 placeholder:text-gray-500 w-full"

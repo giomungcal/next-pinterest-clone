@@ -13,11 +13,12 @@ export const AppProvider = ({ children }) => {
   const pinArray = imageData;
 
   const router = useRouter();
+
   function navigateTo(target) {
     router.push(target);
   }
 
-  //   Identify which items are to be displayed in the Recommended Section
+  // 1. Identify which items are to be displayed in the Recommended Section
   const uniqueTypes = new Set();
   const initialRecommendedDisplayArray = pinArray.filter((image) => {
     if (!uniqueTypes.has(image.type)) {
@@ -36,13 +37,13 @@ export const AppProvider = ({ children }) => {
     ...initialRecommendedDisplayArray,
   ];
 
-  // Resetting all states when Home is clicked
+  // 2. Resetting all states when Home is clicked
   function handleHomeReset(type) {
     setSelectedPinType("");
     setSearchValue("");
   }
 
-  //   Filtering system based on selected Recommended Card and Search Queries
+  // 3.  Filtering system based on selected Recommended Card and Search Queries
   const [selectedPinType, setSelectedPinType] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
@@ -76,7 +77,7 @@ export const AppProvider = ({ children }) => {
     return filteredPinArray;
   }
 
-  // Saving Pins
+  // 4. Saving Pins
 
   const [savedPins, setSavedPins] = useState({
     "mood board": [],
@@ -86,6 +87,14 @@ export const AppProvider = ({ children }) => {
   const [isSaveModalDisplayed, setisSaveModalDisplayed] = useState(false);
   const [selectedSaveFolder, setSelectedSaveFolder] = useState("");
   const [selectedPinToSave, setSelectedPinToSave] = useState(null);
+
+  //   4.1 Adding a new folder
+
+  const [newFolderName, setNewFolderName] = useState("");
+  function handleAddNewFolder(e) {
+    e.preventDefault();
+    console.log("emeee");
+  }
 
   function showSaveModal(index) {
     setisSaveModalDisplayed(true);
@@ -129,11 +138,6 @@ export const AppProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(savedPins);
-    // Object.keys(savedPins).map((item) => console.log(savedPins[item]));
-  }, [savedPins]);
-
   const displayedPins = filteredPins(selectedPinType, searchValue, pinArray);
 
   return (
@@ -147,6 +151,8 @@ export const AppProvider = ({ children }) => {
         handleSearchChange,
         searchValue,
         handleRecommendedClick,
+
+        handleAddNewFolder,
 
         savedPins,
         selectedSaveFolder,
