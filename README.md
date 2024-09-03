@@ -1,24 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## ★ Pinterest Clone using NextJS 
 
-## Getting Started
+This is a next.js pinterest clone for application of below concepts: 
+- HTML, CSS using TailwindCSS
+- ReactJS
+- NextJS
+- Use of browser API - local storage for data storage.
+- Used React Hooks - useContext / Context Provider for state management
+- Responsive Web Design
 
-First, run the development server:
+Features: ⋆｡°✩
+- Explore Page - the home page wherein you will see all the suggested pins/images.
+- Recommended Section - provides ideas/suggestions based on the user's insterests. filters the Explore page depending on the selected recommendation.
+- Save Pins - save pins in specific folder for personal keeping.
+- Pin Modal Display - see more details about the image selected.
+- Pin/Folder Management - remove pins from folders. folder deletion.
+- Local Storage Utility - saved pins will be kept within the client's browser ensuring folders are saved despite closing the app.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Timeline: ☆
+- Started development on August 28, 2024 using ReactJS with React Rotuer.
+- Migrated to NextJS on August 31, 2024. _(Decided to proceed further using NextJS for better page routing.)_
+- Completed mobile-ready website and all features on September 9, 2024.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+☆ ⋆｡°✩ **Made by Gio** ★ ˗ˏˋ ★
 
 ## Learn More
 
