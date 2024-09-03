@@ -34,8 +34,6 @@ function PinBoard({ pinsToBeDisplayed }) {
   const pinToDisplay =
     selectedPin && allPinsDisplayedInHome.find((pin) => pin.id === selectedPin);
 
-  console.log(pinToDisplay);
-
   return (
     <>
       <Masonry

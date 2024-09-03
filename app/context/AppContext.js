@@ -3,6 +3,7 @@
 // context/AppContext.js
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import imageData from "../data/imageData";
 
@@ -114,11 +115,38 @@ export const AppProvider = ({ children }) => {
 
     const formattedFolderName = String(newFolderName.trim());
 
+    !formattedFolderName &&
+      toast("Please enter a valid folder name.", {
+        icon: "🦢",
+        style: {
+          padding: "16px",
+          color: "white",
+          backgroundColor: "#FFA500",
+        },
+      });
+
     if (
       formattedFolderName &&
       !Object.keys(savedPins).includes(formattedFolderName)
     ) {
       setSavedPins((prev) => ({ ...prev, [formattedFolderName]: [] }));
+      toast("Folder created!", {
+        icon: "🐠",
+        style: {
+          padding: "16px",
+          color: "white",
+          backgroundColor: "#228B22",
+        },
+      });
+    } else if (formattedFolderName) {
+      toast("Folder already exists!", {
+        icon: "🦚",
+        style: {
+          padding: "16px",
+          color: "white",
+          backgroundColor: "#FFA500",
+        },
+      });
     }
 
     setNewFolderName("");
@@ -148,13 +176,52 @@ export const AppProvider = ({ children }) => {
   function handleSaveButton(e) {
     e.preventDefault();
 
+    const areThereExistingFolders = Object.keys(savedPins);
+
+    if (!selectedSaveFolder && !areThereExistingFolders.length) {
+      toast(
+        "Type your new folder name then press enter on your keyboard.",
+        {
+          icon: "🧛‍♀️",
+          style: {
+            border: "1px solid red",
+            padding: "16px",
+            color: "white",
+            backgroundColor: "#E60023",
+          },
+        },
+        {
+          duration: 6000,
+        }
+      );
+    }
+
+    if (!selectedSaveFolder && areThereExistingFolders.length) {
+      toast("Select a folder first!", {
+        icon: "👼",
+        style: {
+          border: "1px solid red",
+          padding: "16px",
+          color: "white",
+          backgroundColor: "#E60023",
+        },
+      });
+    }
+
     if (selectedSaveFolder) {
       const isPinExistingInFolder = savedPins[selectedSaveFolder].some(
         (item) => item.id === selectedPin
       );
 
       if (isPinExistingInFolder) {
-        console.error("Pin already exists in the folder!");
+        toast("Pin already exists in the folder.", {
+          icon: "🐸",
+          style: {
+            padding: "16px",
+            color: "white",
+            backgroundColor: "#FFA500",
+          },
+        });
         return;
       }
 
@@ -170,7 +237,18 @@ export const AppProvider = ({ children }) => {
           pinWithUniqueId,
         ],
       }));
+
+      toast("Pin stored!", {
+        icon: "🐳",
+        style: {
+          padding: "16px",
+          color: "white",
+          backgroundColor: "#228B22",
+        },
+      });
+
       setSelectedPin(null);
+      setNewFolderName("");
     }
   }
 
@@ -181,6 +259,16 @@ export const AppProvider = ({ children }) => {
       const newSavedPins = { ...prevSavedPins };
       delete newSavedPins[folderToDelete];
       return newSavedPins;
+    });
+
+    toast("You have deleted a folder!", {
+      icon: "👻",
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "white",
+        backgroundColor: "#E60023",
+      },
     });
   }
 
@@ -195,6 +283,16 @@ export const AppProvider = ({ children }) => {
       ...prevPins,
       [folderName]: [...updatedFolder],
     }));
+
+    toast("You have deleted a pin!", {
+      icon: "👽",
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "white",
+        backgroundColor: "#E60023",
+      },
+    });
   }
 
   // 7. Individual Pin Modal Display
@@ -208,11 +306,8 @@ export const AppProvider = ({ children }) => {
 
   function handleClosePinModalDisplay() {
     setPinModalDisplay(false);
+    setSelectedPin(null);
   }
-
-  useEffect(() => {
-    console.log(selectedPin);
-  }, [selectedPin]);
 
   // Displaying/Filtering pins in home
 
