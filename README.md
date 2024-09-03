@@ -1,4 +1,4 @@
-## ★ Pinterest Clone using NextJS - https://next-pinterest-clone.vercel.app/
+## ★ Pinterest Clone using NextJS - https://pinterest-clone-yogi.vercel.app/
 
 This is a next.js pinterest clone for application of below concepts: 
 - HTML, CSS using TailwindCSS
