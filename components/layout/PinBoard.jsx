@@ -15,6 +15,7 @@ function PinBoard({ pinsToBeDisplayed }) {
     pinModalDisplay,
     handleClosePinModalDisplay,
     selectedPin,
+    showSaveModal,
   } = useAppContext();
 
   const breakpointColumnsObj = {
@@ -56,7 +57,7 @@ function PinBoard({ pinsToBeDisplayed }) {
               // Saved Folder Page
               <Pin
                 src={img.src}
-                key={img.id}
+                key={img.uniqueId}
                 idOfImage={img.id}
                 folderName={pinsToBeDisplayed}
                 actionOnButtonClick={"delete"}
@@ -76,6 +77,7 @@ function PinBoard({ pinsToBeDisplayed }) {
             className={`${!pinModalDisplay && "hidden"}  fixed inset-0 z-30 `}
           ></div>
           <div className="max-w-[1000px] h-[600px] z-50 bg-white block lg:flex lg:justify-between rounded-3xl">
+            {/* Mobile View */}
             <div className="relative w-50% h-full">
               <img
                 src={pinToDisplay.src}
@@ -83,35 +85,34 @@ function PinBoard({ pinsToBeDisplayed }) {
                 className="w-full h-full object-cover rounded-3xl lg:rounded-none lg:rounded-tl-3xl lg:rounded-bl-3xl"
               />
               <div
-                onClick={handleClosePinModalDisplay}
-                className="lg:hidden absolute right-0 top-0 m-8 w-12 h-12 rounded-full cursor-pointer bg-white opacity-40 flex justify-center items-center"
+                onClick={() => showSaveModal()}
+                className="lg:hidden absolute right-0 top-0 m-8 w-14 h-14 rounded-full cursor-pointer bg-red-500 bg-slate-600 text-white opacity-90 flex justify-center items-center"
               >
+                {/* Save Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-6"
+                  fill="currentColor"
+                  className="size-5"
                 >
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
+                    fillRule="evenodd"
+                    d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
+                    clipRule="evenodd"
                   />
                 </svg>
               </div>
-              <div className="lg:hidden absolute w-full bottom-0 left-0 py-8 pl-8 rounded-bl-3xl rounded-br-3xl ">
-                {/* Background Overlay */}
-                <div className="absolute inset-0 bg-neutral-900 opacity-50 rounded-bl-3xl rounded-br-3xl"></div>
 
-                {/* Content */}
+              <div className="lg:hidden absolute w-full bottom-0 left-0 py-8 pl-8 rounded-bl-3xl rounded-br-3xl ">
+                <div className="absolute inset-0 bg-neutral-900 opacity-50 rounded-bl-3xl rounded-br-3xl"></div>
                 <div className="relative z-10 text-white">
                   <h2 className="mb-2 text-2xl">{pinToDisplay.description}</h2>
                   <h3 className="font-light italic">{pinToDisplay.type}</h3>
                 </div>
               </div>
             </div>
+
+            {/* Wide Screen View */}
             <div className="hidden lg:flex flex-col justify-between min-w-[350px] mx-8  py-8">
               <div onClick={handleClosePinModalDisplay} className="self-end">
                 <TextButton title={"Close"} />

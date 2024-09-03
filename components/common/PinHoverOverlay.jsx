@@ -3,16 +3,19 @@
 import { useAppContext } from "@/app/context/AppContext";
 
 function PinHoverOverlay({ idOfImage, actionOnButtonClick, folderName }) {
-  const { showSaveModal, handlePinRemoval, handleOpenPinModalDisplay } =
-    useAppContext();
+  const {
+    showSaveModal,
+    handlePinRemoval,
+    handleOpenPinModalDisplay,
+    setSelectedPin,
+  } = useAppContext();
 
   return (
     <>
-      {/* BACK UP */}
-
       <div
         onClick={() => {
           handleOpenPinModalDisplay(idOfImage);
+          setSelectedPin(idOfImage);
         }}
         className=" hidden group-hover:block absolute top-0 left-0 w-full h-full opacity-30 bg-black rounded-lg transition-opacity duration-300"
       ></div>

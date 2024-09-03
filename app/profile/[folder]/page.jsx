@@ -16,27 +16,40 @@ function ProfileFolder() {
   const doesFolderNameExist =
     Object.keys(savedPins).includes(originalFolderName);
 
+  console.log();
+
   return (
     <>
       <Header />
       {doesFolderNameExist ? (
-        <>
+        savedPins[originalFolderName].length ? (
+          <>
+            <div className="w-full flex flex-col justify-center items-center my-10 ">
+              <span className="text-4xl font-semibold mb-6">
+                {originalFolderName}
+              </span>
+              <button
+                onClick={() => {
+                  navigateTo("/profile");
+                  handleFolderDeletion(originalFolderName);
+                }}
+                className={`px-4 h-[48px] items-center rounded-full bg-gray-200 hover:bg-red-500 hover:text-white min-w-max`}
+              >
+                Delete Folder
+              </button>
+            </div>
+            <PinBoard pinsToBeDisplayed={originalFolderName} />
+          </>
+        ) : (
           <div className="w-full flex flex-col justify-center items-center my-10 ">
             <span className="text-4xl font-semibold mb-6">
               {originalFolderName}
             </span>
-            <button
-              onClick={() => {
-                navigateTo("/profile");
-                handleFolderDeletion(originalFolderName);
-              }}
-              className={`px-4 h-[48px] items-center rounded-full bg-gray-200 hover:bg-red-500 hover:text-white min-w-max`}
-            >
-              Delete Folder
-            </button>
+            <div className="w-full h-[200px] flex justify-center items-center">
+              No pins yet!
+            </div>
           </div>
-          <PinBoard pinsToBeDisplayed={originalFolderName} />
-        </>
+        )
       ) : (
         <div className="w-full h-[400px] flex justify-center items-center">
           Error 404: Page not found.

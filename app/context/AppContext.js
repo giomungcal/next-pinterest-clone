@@ -160,7 +160,8 @@ export const AppProvider = ({ children }) => {
 
   function showSaveModal(index) {
     setisSaveModalDisplayed(true);
-    setSelectedPin(index);
+    index && setSelectedPin(index);
+    setPinModalDisplay(false);
   }
 
   function closeSaveModal() {
@@ -349,6 +350,7 @@ export const AppProvider = ({ children }) => {
         handleClosePinModalDisplay,
         pinModalDisplay,
         selectedPin,
+        setSelectedPin,
       }}
     >
       {children}

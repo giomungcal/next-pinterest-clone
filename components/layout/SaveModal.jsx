@@ -37,9 +37,11 @@ function SaveModal() {
         <AddFolder />
 
         <form>
-          <span className="text-sm text-gray-800 font-semibold ml-4">
-            Choose folder: <span className="text-red-700">(required)</span>
-          </span>
+          {folderNames.length > 0 && (
+            <span className="text-sm text-gray-800 font-semibold ml-4">
+              Choose folder: <span className="text-red-700">(required)</span>
+            </span>
+          )}
 
           <div className="flex flex-col justify-items-start max-h-52 overflow-auto space-y-2 mt-4 mb-8 px-4 custom-scrollbar">
             {folderNames.map((folder, index) => (
