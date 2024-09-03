@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Pinterest using NextJS",
+  title: "Pinterest Clone by Yogi",
   description: "woot woot!!",
 };
 
