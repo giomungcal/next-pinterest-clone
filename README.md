@@ -1,4 +1,4 @@
-## ★ Pinterest Clone using NextJS 
+## ★ Pinterest Clone using NextJS - https://next-pinterest-clone.vercel.app/
 
 This is a next.js pinterest clone for application of below concepts: 
 - HTML, CSS using TailwindCSS
@@ -21,7 +21,10 @@ Timeline: ☆
 - Migrated to NextJS on August 31, 2024. _(Decided to proceed further using NextJS for better page routing.)_
 - Completed mobile-ready website and all features on September 9, 2024.
 
+_Hosted thru Vercel_
+
 ☆ ⋆｡°✩ **Made by Gio** ★ ˗ˏˋ ★
+
 
 ## Learn More
 
