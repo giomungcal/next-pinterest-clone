@@ -1,6 +1,6 @@
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import PinBoard from "@/components/layout/PinBoard";
-import ProfileFooter from "@/components/layout/ProfileFooter";
 import Recommended from "@/components/layout/Recommended";
 import SaveModal from "@/components/layout/SaveModal";
 import React from "react";
@@ -12,7 +12,7 @@ function Home() {
       <Recommended />
       <SaveModal />
       <PinBoard pinsToBeDisplayed={"all"} />
-      <ProfileFooter />
+      <Footer />
     </>
   );
 }

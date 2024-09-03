@@ -2,9 +2,9 @@
 
 import { useAppContext } from "@/app/context/AppContext";
 import TextButton from "@/components/common/TextButton";
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import PinBoard from "@/components/layout/PinBoard";
-import ProfileFooter from "@/components/layout/ProfileFooter";
 import { useParams } from "next/navigation";
 
 function ProfileFolder() {
@@ -55,7 +55,7 @@ function ProfileFolder() {
           Error 404: Page not found.
         </div>
       )}
-      <ProfileFooter />
+      <Footer />
     </>
   );
 }
