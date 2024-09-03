@@ -128,16 +128,17 @@ export const AppProvider = ({ children }) => {
 
   const [isSaveModalDisplayed, setisSaveModalDisplayed] = useState(false);
   const [selectedSaveFolder, setSelectedSaveFolder] = useState("");
-  const [selectedPinToSave, setSelectedPinToSave] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
 
   function showSaveModal(index) {
     setisSaveModalDisplayed(true);
-    setSelectedPinToSave(index);
+    setSelectedPin(index);
   }
 
   function closeSaveModal() {
     setisSaveModalDisplayed(false);
     setSelectedSaveFolder("");
+    setSelectedPin(null);
   }
 
   function handleSelectedSaveFolderChange(folder) {
@@ -149,7 +150,7 @@ export const AppProvider = ({ children }) => {
 
     if (selectedSaveFolder) {
       const isPinExistingInFolder = savedPins[selectedSaveFolder].some(
-        (item) => item.id === selectedPinToSave
+        (item) => item.id === selectedPin
       );
 
       if (isPinExistingInFolder) {
@@ -158,7 +159,7 @@ export const AppProvider = ({ children }) => {
       }
 
       // Assign new unique id to pin
-      const newPin = pinArray.find((pin) => pin.id === selectedPinToSave);
+      const newPin = pinArray.find((pin) => pin.id === selectedPin);
       const pinWithUniqueId = { ...newPin, uniqueId: uuidv4() };
 
       // Add pin to folder if pin doesn't exist yet
@@ -169,6 +170,7 @@ export const AppProvider = ({ children }) => {
           pinWithUniqueId,
         ],
       }));
+      setSelectedPin(null);
     }
   }
 
@@ -194,6 +196,25 @@ export const AppProvider = ({ children }) => {
       [folderName]: [...updatedFolder],
     }));
   }
+
+  // 7. Individual Pin Modal Display
+
+  const [pinModalDisplay, setPinModalDisplay] = useState(false);
+
+  function handleOpenPinModalDisplay(idOfImage) {
+    setPinModalDisplay(true);
+    setSelectedPin(idOfImage);
+  }
+
+  function handleClosePinModalDisplay() {
+    setPinModalDisplay(false);
+  }
+
+  useEffect(() => {
+    console.log(selectedPin);
+  }, [selectedPin]);
+
+  // Displaying/Filtering pins in home
 
   const allPinsDisplayedInHome = filteredPins(
     selectedPinType,
@@ -228,6 +249,11 @@ export const AppProvider = ({ children }) => {
         handleFolderDeletion,
 
         handlePinRemoval,
+
+        handleOpenPinModalDisplay,
+        handleClosePinModalDisplay,
+        pinModalDisplay,
+        selectedPin,
       }}
     >
       {children}

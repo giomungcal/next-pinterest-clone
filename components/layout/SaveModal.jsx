@@ -29,7 +29,7 @@ function SaveModal() {
 
   if (!isSaveModalDisplayed) return null;
   return (
-    <section className="fixed inset-0 z-20 bg-[#3A3A3A] bg-opacity-30  backdrop-blur-sm flex justify-center items-center ">
+    <section className="fixed inset-0 z-50 bg-[#3A3A3A] bg-opacity-30  backdrop-blur-sm flex justify-center items-center ">
       <div className="w-[300px] bg-white rounded-2xl px-2 py-4">
         <h2 className="w-full my-5 mx-auto text-center text-lg font-semibold">
           Save

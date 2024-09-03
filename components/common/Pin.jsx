@@ -19,6 +19,7 @@ function Pin({ src, idOfImage, actionOnButtonClick, folderName }) {
         style={{
           width: "100%",
           height: "auto",
+          // zIndex: "30",
         }}
       />
       <PinHoverOverlay

@@ -8,7 +8,7 @@ function Recommended() {
 
   return (
     <section
-      className="w-full h-auto flex justify-between mb-5 items-center py-1 px-4 overflow-y-auto hidden-scrollbar"
+      className="w-full h-auto flex justify-between 2xl:justify-center  mb-5 items-center py-1 px-4 overflow-y-auto hidden-scrollbar"
       style={{}}
     >
       {recommendedDisplayArray.map((item) => (
