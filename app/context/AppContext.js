@@ -115,16 +115,25 @@ export const AppProvider = ({ children }) => {
 
     const formattedFolderName = String(newFolderName.trim());
 
-    !formattedFolderName &&
-      toast("Please enter a valid folder name.", {
-        icon: "🦢",
-        style: {
-          padding: "16px",
-          color: "white",
-          backgroundColor: "#FFA500",
-        },
-      });
+    function isFolderANumber(value) {
+      return !isNaN(+value);
+    }
 
+    if (!formattedFolderName || isFolderANumber(formattedFolderName)) {
+      toast(
+        "Please enter a valid folder name (numbers only are not allowed).",
+        {
+          icon: "🦢",
+          style: {
+            padding: "16px",
+            color: "white",
+            backgroundColor: "#FFA500",
+          },
+        }
+      );
+      setNewFolderName("");
+      return;
+    }
     if (
       formattedFolderName &&
       !Object.keys(savedPins).includes(formattedFolderName)
